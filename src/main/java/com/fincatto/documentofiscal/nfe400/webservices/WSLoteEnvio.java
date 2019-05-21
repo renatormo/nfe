@@ -128,7 +128,9 @@ class WSLoteEnvio {
             throw new IllegalArgumentException("Nao foi possivel encontrar URL para Autorizacao " + modelo.name() + ", autorizador " + autorizador.name());
         }
 
+        WSLoteEnvio.LOGGER.info("ENVIANDO AUTORIZACAO");
         final NfeResultMsg autorizacaoLoteResult = new NFeAutorizacao4Stub(endpoint).nfeAutorizacaoLote(dados);
+        WSLoteEnvio.LOGGER.info(autorizacaoLoteResult.getExtraElement().toString());
         final NFLoteEnvioRetorno loteEnvioRetorno = new DFPersister().read(NFLoteEnvioRetorno.class, autorizacaoLoteResult.getExtraElement().toString());
         WSLoteEnvio.LOGGER.info(loteEnvioRetorno.toString());
         return loteEnvioRetorno;
